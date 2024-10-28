@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("BankApp")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("BankAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b663f941ad02341cd14dbbd5aa38bacaa695b519")]
-[assembly: System.Reflection.AssemblyProductAttribute("BankApp")]
-[assembly: System.Reflection.AssemblyTitleAttribute("BankApp")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+02d5dba7697ee2b0382b50bfb2e5e21c3d0a9a37")]
+[assembly: System.Reflection.AssemblyProductAttribute("BankAPI")]
+[assembly: System.Reflection.AssemblyTitleAttribute("BankAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.

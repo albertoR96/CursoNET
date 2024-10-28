@@ -1,0 +1,6 @@
+BankApp/nuget.exe
+BankApp/BankApp/bin
+BankApp/BankApp/obj
+BankAPI/bin
+BankAPI/obj
+.vscode

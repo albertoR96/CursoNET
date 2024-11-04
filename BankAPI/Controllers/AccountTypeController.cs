@@ -6,7 +6,7 @@ using BankAPI.Data.BankModels;
 namespace BankAPI.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class AccountTypeController : ControllerBase
 {
     private readonly AccountTypeService _service;

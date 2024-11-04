@@ -20,15 +20,17 @@ public partial class BankContext : DbContext
 
     public virtual DbSet<AccountType> AccountTypes { get; set; }
 
+    public virtual DbSet<Administrator> Administrators { get; set; }
+
     public virtual DbSet<BankTransaction> BankTransactions { get; set; }
 
     public virtual DbSet<Client> Clients { get; set; }
 
     public virtual DbSet<TransactionType> TransactionTypes { get; set; }
 
-    /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=Bank;Trusted_connection=true;TrustServerCertificate=true");*/
+        => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=Bank;Trusted_connection=true;TrustServerCertificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -70,6 +72,39 @@ public partial class BankContext : DbContext
                 .HasColumnType("datetime");
         });
 
+        modelBuilder.Entity<Administrator>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Administ__3214EC27EB94B4F3");
+
+            entity.ToTable("Administrator");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.AdminType)
+                .HasMaxLength(30)
+                .IsUnicode(false);
+            entity.Property(e => e.Email)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.HashString)
+                .HasMaxLength(512)
+                .IsUnicode(false);
+            entity.Property(e => e.Name)
+                .HasMaxLength(200)
+                .IsUnicode(false);
+            entity.Property(e => e.PhoneNumber)
+                .HasMaxLength(40)
+                .IsUnicode(false);
+            entity.Property(e => e.Pwd)
+                .HasMaxLength(256)
+                .IsUnicode(false);
+            entity.Property(e => e.RegDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.SaltString)
+                .HasMaxLength(512)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<BankTransaction>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__BankTran__3214EC27D04CDF42");
@@ -104,15 +139,24 @@ public partial class BankContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.HashString)
+                .HasMaxLength(512)
+                .IsUnicode(false);
             entity.Property(e => e.Name)
                 .HasMaxLength(200)
                 .IsUnicode(false);
             entity.Property(e => e.PhoneNumber)
                 .HasMaxLength(40)
                 .IsUnicode(false);
+            entity.Property(e => e.Pwd)
+                .HasMaxLength(512)
+                .IsUnicode(false);
             entity.Property(e => e.RegDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.SaltString)
+                .HasMaxLength(512)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<TransactionType>(entity =>

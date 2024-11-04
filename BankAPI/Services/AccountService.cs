@@ -41,6 +41,22 @@ public class AccountService
         return await _context.Accounts.FindAsync(id);
     }
 
+    public async Task<IEnumerable<AccountDtoOut>> GetByClientId(int id)
+    {
+        var client = GetById(id);
+        if (client is null)
+        {
+            throw new ClientNotFoundException("Client not found");
+        }
+        return await _context.Accounts.Where(a => a.ClientId == id).Select(a => new AccountDtoOut {
+            Id = a.Id,
+            AccountName = a.AccountTypeNavigation.Name,
+            ClientName = a.Client != null ? a.Client.Name : "",
+            Balance = a.Balance,
+            RegDate = a.RegDate
+        }).ToListAsync();
+    }
+
     public async Task<Account> Create(AccountDtoIn newAccountDTO)
     {
         Account newAccount = new Account();
@@ -65,6 +81,17 @@ public class AccountService
         }
     }
 
+    public async Task UpdateAccountBalance(int id, decimal balance)
+    {
+        var existingAccount = await GetById(id);
+        if (existingAccount is not null)
+        {
+            existingAccount.Balance += balance;
+
+        }
+        await _context.SaveChangesAsync();
+    }
+
     public async Task Delete(int id)
     {
         var accountToDelete = await GetById(id);
@@ -74,5 +101,11 @@ public class AccountService
             _context.Accounts.Remove(accountToDelete);
             await _context.SaveChangesAsync();
         }
+    }
+
+    public async Task<bool> AccountExists(int id)
+    {
+        var existingAccount = await GetById(id);
+        return (existingAccount is not null);
     }
 }
